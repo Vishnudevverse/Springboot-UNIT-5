@@ -1,5 +1,3 @@
-Of course. Here is a complete step-by-step guide for testing your application flow with Postman.
-
 ### **Part 1: User Registration and Faculty Login**
 
 #### **Step 1: Register Faculty**
