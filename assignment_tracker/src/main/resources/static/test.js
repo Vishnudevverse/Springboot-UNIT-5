@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     return true;
                 })
                 .map(f => `
-                    <div class="p-4 bg-gray-50 rounded-lg shadow mb-2">
-                        <h3 class="font-bold text-gray-900">${f.name}</h3>
-                        <p class="text-gray-600">${f.email}</p>
-                        <p class="text-sm text-gray-500">${f.department}</p>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                        <h3 class="font-bold text-indigo-700">${f.name}</h3>
+                        <p class="text-sm text-gray-600">${f.email}</p>
+                        <p class="text-xs text-gray-500 mt-1">${f.department}</p>
                     </div>
                 `).join('');
             // Update faculty dropdown after new faculty is added
@@ -174,10 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const students = await api.getStudents();
             studentList.innerHTML = students.map(s => `
-                <div class="p-4 bg-white rounded-lg shadow mb-2">
-                    <h3 class="font-bold">${s.name}</h3>
-                    <p class="text-gray-600">${s.email}</p>
-                    <p class="text-sm">${s.department}</p>
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-indigo-700">${s.name}</h3>
+                    <p class="text-sm text-gray-600">${s.email}</p>
+                    <p class="text-xs text-gray-500 mt-1">${s.department}</p>
                 </div>
             `).join('');
         } catch (error) {
@@ -189,10 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const assignments = await api.getAssignments();
             assignmentList.innerHTML = assignments.map(a => `
-                <div class="p-4 bg-white rounded-lg shadow mb-2">
-                    <h3 class="font-bold">${a.title}</h3>
-                    <p class="text-gray-600">${a.description}</p>
-                    <p class="text-sm">Due: ${a.dueDate}</p>
+                <div class="p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg text-gray-800">${a.title}</h3>
+                        <span class="text-sm font-medium text-white bg-indigo-500 px-2 py-1 rounded-full">${new Date(a.dueDate).toLocaleDateString()}</span>
+                    </div>
+                    <p class="text-gray-600 mt-2">${a.description}</p>
                 </div>
             `).join('');
         } catch (error) {
@@ -214,13 +216,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const studentId = s.student ? s.student.id : null;
                 const assignment = assignmentId ? assignments.find(a => a.id == assignmentId) : null;
                 const student = studentId ? students.find(st => st.id == studentId) : null;
+                
+                const statusClasses = {
+                    'SUBMITTED': 'bg-blue-100 text-blue-800',
+                    'IN_REVIEW': 'bg-yellow-100 text-yellow-800',
+                    'APPROVED': 'bg-green-100 text-green-800',
+                    'REJECTED': 'bg-red-100 text-red-800',
+                };
+                const statusClass = statusClasses[s.status] || 'bg-gray-100 text-gray-800';
+
                 return `
-                <div class="p-4 bg-white rounded-lg shadow mb-2">
-                    <h3 class="font-bold">Assignment: ${assignment ? assignment.title : 'Unknown'}</h3>
-                    <p class="text-gray-600">By: ${student ? student.name : 'Unknown'}</p>
-                    <p class="text-sm">Submitted: ${new Date(s.submittedAt).toLocaleString()}</p>
-                    <p class="text-sm">Status: ${s.status || 'N/A'}</p>
-                    ${s.fileUrl ? `<a href="${s.fileUrl}" class="text-blue-600 hover:underline" target="_blank">View Submission</a>` : ''}
+                <div class="p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800">${assignment ? assignment.title : 'Unknown Assignment'}</h3>
+                            <p class="text-sm text-gray-600">Submitted by: <span class="font-medium">${student ? student.name : 'Unknown Student'}</span></p>
+                        </div>
+                        <span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClass}">${s.status || 'N/A'}</span>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center">
+                        <p class="text-xs text-gray-500">Submitted on: ${new Date(s.submittedAt).toLocaleString()}</p>
+                        ${s.fileUrl ? `<a href="${s.fileUrl}" class="text-sm text-indigo-600 hover:underline font-semibold" target="_blank">View Submission &rarr;</a>` : ''}
+                    </div>
                 </div>
             `}).join('');
         } catch (error) {
