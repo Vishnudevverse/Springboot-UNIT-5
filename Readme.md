@@ -62,9 +62,7 @@ After you send the login request in Step 3, Postman will show a response body, w
 1.  **Copy the token value** from the response body.
 2.  Go to the **Authorization** tab for your collection or for the next request (Step 5).
 3.  Set the **Type** to **Bearer Token**.
-4.  **Paste the copied token** into the **Token** field on the right.
-
-![Postman Authorization Tab](https://i.imgur.com/your-image-url.png) 
+4.  **Paste the copied token** into the **Token** field on the right. 
 
 #### **Step 5: Create Assignment (as Faculty)**
 
