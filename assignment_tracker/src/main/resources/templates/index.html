@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Tracker</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to the external JavaScript file -->
+    <script>
+        document.write('<script src="/test.js?t=' + new Date().getTime() + '"><\/script>');
+    </script>
+    <style>
+        .message {
+            display: none;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        .message.show {
+            display: block;
+        }
+        .message.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        .message.success {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans p-4 md:p-8">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- === COLUMN 1: CREATE FORMS === -->
+        <div class="space-y-8">
+            <!-- Create Faculty Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Create Faculty</h2>
+                <form id="form-faculty" class="space-y-4">
+                    <div>
+                        <label for="faculty-name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="faculty-name" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="faculty-email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="faculty-email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="faculty-department" class="block text-sm font-medium text-gray-700">Department</label>
+                        <input type="text" id="faculty-department" name="department" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700">Create Faculty</button>
+                </form>
+            </div>
+
+            <!-- Create Student Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Create Student</h2>
+                <form id="form-student" class="space-y-4">
+                    <div>
+                        <label for="student-name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="student-name" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="student-email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="student-email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="student-department" class="block text-sm font-medium text-gray-700">Department</label>
+                        <input type="text" id="student-department" name="department" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700">Create Student</button>
+                </form>
+            </div>
+
+            <!-- Create Assignment Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Create Assignment</h2>
+                <form id="form-assignment" class="space-y-4">
+                    <div>
+                        <label for="assignment-title" class="block text-sm font-medium text-gray-700">Title</label>
+                        <input type="text" id="assignment-title" name="title" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="assignment-description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="assignment-description" name="description" rows="3" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                    </div>
+                    <div>
+                        <label for="assignment-due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                        <input type="date" id="assignment-due-date" name="dueDate" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="assignment-faculty" class="block text-sm font-medium text-gray-700">Faculty</label>
+                        <select id="assignment-faculty" name="facultyId" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Select Faculty</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700">Create Assignment</button>
+                </form>
+            </div>
+
+            <!-- Create Submission Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Submit Assignment</h2>
+                <form id="form-submission" class="space-y-4">
+                    <div>
+                        <label for="submission-student" class="block text-sm font-medium text-gray-700">Student</label>
+                        <select id="submission-student" name="studentId" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="submission-assignment" class="block text-sm font-medium text-gray-700">Assignment</label>
+                        <select id="submission-assignment" name="assignmentId" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Select Assignment</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="submission-file-url" class="block text-sm font-medium text-gray-700">File URL</label>
+                        <input type="url" id="submission-file-url" name="fileUrl" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="https://example.com/your-file">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md font-medium hover:bg-indigo-700">Submit Assignment</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- === COLUMN 2: LISTS === -->
+        <div class="space-y-8">
+            <!-- Faculty List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Faculty List</h2>
+                <div id="faculty-list" class="space-y-4">
+                    <!-- Faculty items will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Student List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Student List</h2>
+                <div id="student-list" class="space-y-4">
+                    <!-- Student items will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Assignment List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Assignment List</h2>
+                <div id="assignment-list" class="space-y-4">
+                    <!-- Assignment items will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Submission List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Submission List</h2>
+                <div id="submission-list" class="space-y-4">
+                    <!-- Submission items will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Banner Container -->
+    <div id="message-banner" class="message fixed bottom-4 right-4 max-w-md"></div>
+</body>
+</html>
+
