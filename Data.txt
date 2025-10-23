@@ -1,0 +1,32 @@
+Sample Data for Assignment Tracker
+
+--- Faculty ---
+Name: Dr. Alan Turing
+Email: alan.turing@bletchleypark.com
+Department: Computer Science
+
+Name: Dr. Grace Hopper
+Email: grace.hopper@yale.edu
+Department: Computer Science
+
+--- Student ---
+Name: Ada Lovelace
+Email: ada.lovelace@example.com
+Department: Mathematics
+
+Name: Charles Babbage
+Email: charles.babbage@example.com
+Department: Engineering
+
+--- Assignment ---
+Title: Create an Analytical Engine
+Description: Design and document a mechanical general-purpose computer.
+Due Date: 1837-10-12
+
+Title: COBOL Language Specification
+Description: Develop a high-level programming language for business applications.
+Due Date: 1959-12-31
+
+--- Submission ---
+File URL: https://github.com/example/analytical-engine-design
+File URL: https://example.com/cobol_spec_v1.pdf
